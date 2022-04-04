@@ -11,7 +11,6 @@ export default function Login({ onIdSubmit }) {
         onIdSubmit(idRef.current.value)
     }
 
-    {/* Creates randomly generated user ID: TODO: Replace with username and password registration system */}
     function createNewId() {
         onIdSubmit(uuidV4())
     }
