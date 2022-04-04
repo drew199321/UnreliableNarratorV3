@@ -1,6 +1,7 @@
-import React, { useState, useContext } from 'react'
+import React, { useState, useContext, useEffect, useCallback } from 'react'
 import useLocalStorage from '../hooks/useLocalStorage';
 import { useContacts } from './ContactsProvider';
+import { useSocket } from './SocketProvider';
 
 const ConversationsContext = React.createContext()
 
@@ -12,6 +13,7 @@ export function ConversationsProvider({ id, children }) {
   const [conversations, setConversations] = useLocalStorage('conversations', [])
   const [selectedConversationIndex, setSelectedConversationIndex] = useState(0)
   const { contacts } = useContacts()
+  const socket = useSocket()
 
   function createConversation(recipients) {
     setConversations(prevConversations => {
@@ -47,7 +49,16 @@ export function ConversationsProvider({ id, children }) {
     })
   }
 
+  useEffect(() => {
+      if (socket == null) return
+
+      socket.on('recieve-message', addMessageToConversation)
+
+      return () => socket.off('recieve-message')
+  }, [socket, addMessageToConversation])
+
   function sendMessage(recipients, text) {
+      socket.emit('send-message', {recipients, text})
       addMessageToConversation({ recipients, text, sender: id })
   }
 
