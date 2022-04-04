@@ -1,5 +1,6 @@
 import React, { useRef } from 'react'
 import { Container, Form, Button } from 'react-bootstrap'
+import { v4 as uuidV4} from 'uuid'
 
 export default function Login({ onIdSubmit }) {
     const idRef = useRef()
@@ -10,6 +11,11 @@ export default function Login({ onIdSubmit }) {
         onIdSubmit(idRef.current.value)
     }
 
+    {/* Creates randomly generated user ID: TODO: Replace with username and password registration system */}
+    function createNewId() {
+        onIdSubmit(uuidV4())
+    }
+
   return (
     <Container className = "align-items-center d-flex" style = {{ height: '100vh' }}>
         <Form onSubmit = {handleSubmit} className = "w-100">
@@ -18,7 +24,7 @@ export default function Login({ onIdSubmit }) {
                 <Form.Control type="text" ref={idRef} required></Form.Control>
             </Form.Group>
             <Button type="submit" style = {{marginTop: '10px', marginRight: '10px'}}>Login</Button>
-            <Button variant="secondary" style = {{marginTop: '10px', marginRight: '10px'}}>Generate New ID</Button>
+            <Button onClick ={createNewId} variant="secondary" style = {{marginTop: '10px', marginRight: '10px'}}>Generate New ID</Button>
         </Form>
     </Container>
   )
