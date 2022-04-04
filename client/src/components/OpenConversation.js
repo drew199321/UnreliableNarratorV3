@@ -1,8 +1,8 @@
 import React, { useState } from 'react'
-import { Form, InputGroup } from 'react-bootstrap'
+import { Form, InputGroup, Button } from 'react-bootstrap'
 
 export default function OpenConversation() {
-    const [text, setText] = useState()
+    const [text, setText] = useState('')
 
   return (
     <div className="d-flex flex-column flex-grow-1">
@@ -10,7 +10,7 @@ export default function OpenConversation() {
 
         </div>
         <Form>
-            <Form.Group>
+            <Form.Group className = "m-2">
                 <InputGroup>
                 <Form.Control 
                     as="textarea" 
@@ -19,6 +19,7 @@ export default function OpenConversation() {
                     onChange={e => setText(e.target.value)}
                     style = {{ height: '75px', resize: 'none' }}
                 />
+                <Button type = "submit">Send</Button>
                 </InputGroup>
             </Form.Group>
             
