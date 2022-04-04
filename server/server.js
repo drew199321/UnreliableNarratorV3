@@ -10,6 +10,9 @@ io.on('connection', socket => {
         recipients.forEach(recipient => {
             const newRecipients = recipients.filter(r=>r!==recipient)
             newRecipients.push(id)
+            console.log('Message Transfer:')
+            console.log(recipients)
+            console.log(text)
             socket.broadcast.to(recipient).emit('recieve-message', {
                 recipients: newRecipients, sender:id, text
             })
