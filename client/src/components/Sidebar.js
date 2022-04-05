@@ -14,6 +14,11 @@ export default function Sidebar({ id }) {
     const [activeKey, setActiveKey] = useState(CONVERSATIONS_KEY)
     const [modalOpen, setModalOpen] = useState(false)
     const conversationsOpen = activeKey === CONVERSATIONS_KEY
+    const diceOpen = activeKey === DICE_KEY
+
+    function buttonSelector() {
+
+    }
 
     function closeModal() {
         setModalOpen(false)
@@ -33,7 +38,7 @@ export default function Sidebar({ id }) {
                     <Nav.Link eventKey = {DICE_KEY}>Dice</Nav.Link>
                 </Nav.Item>
             </Nav>
-            <Tab.Content className="border border-top-0 overflow-auto flex-grow-1">
+            <Tab.Content className="border-end overflow-auto flex-grow-1">
                 <Tab.Pane eventKey={CONVERSATIONS_KEY}>
                     <Conversations />
                 </Tab.Pane>
@@ -44,11 +49,11 @@ export default function Sidebar({ id }) {
                     <Dice />
                 </Tab.Pane>
             </Tab.Content>
-            <div className = "p-2 border border-top-0 small">
+            <div className = "p-2 border-top border-end small">
               Your ID: <span className = "text-muted" >{id}</span>  
             </div>
             <Button onClick={() => setModalOpen(true)} className="rounded-0">
-                New {conversationsOpen ? "Conversation" : "Contact" }
+                New {conversationsOpen ? "Conversation" : "Contact"}
             </Button>
         </Tab.Container>
 
